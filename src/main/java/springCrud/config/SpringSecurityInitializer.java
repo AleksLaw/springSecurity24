@@ -1,4 +1,4 @@
-package springCrud.config.sdadasdasdasd;
+package springCrud.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

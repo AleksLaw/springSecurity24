@@ -31,13 +31,13 @@ public class UserDAOImp implements UserDAO {
     @Override
     public void updateUserDAO(User userNew) {
         Query query = entityManager.createQuery("update User set name = :nameParam, " +
-                "password = :passwordParam, " +
-                "role = :roleParam" +
+                "password = :passwordParam " +
+             //   "role = :roleParam" +
                 " where id = :idParam");
         query.setParameter("idParam", userNew.getId());
         query.setParameter("nameParam", userNew.getName());
         query.setParameter("passwordParam", userNew.getPassword());
-        query.setParameter("roleParam", userNew.getRole());
+       // query.setParameter("roleParam", userNew.getRole());
         query.executeUpdate();
     }
 
@@ -61,6 +61,11 @@ public class UserDAOImp implements UserDAO {
         }
         User user = (User) resultList.get(0);
         return user.getId();
+    }
+
+    @Override
+    public User getUserByName(String name) {
+            return entityManager.find(User.class, name);
     }
 
     @Override

@@ -15,5 +15,7 @@ public interface UserDAO {
 
     Long getUserIdByNameAndPassword(String name, String password);
 
+    User getUserByName(String name);
+
     User getUserById(Long id);
 }

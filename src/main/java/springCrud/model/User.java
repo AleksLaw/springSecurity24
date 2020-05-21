@@ -1,10 +1,15 @@
 package springCrud.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,47 +22,35 @@ public class User {
     @Column
     private String password;
 
+
     @Column
-    private String role;
+
+    @ManyToMany()
+    @JoinTable(name = "users_role",
+            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> userRoles;
 
     public User() {
     }
 
-    public User(Long id, String name, String password, String role) {
-        this.id = id;
+    public User(String name, String password, Set<Role> userRoles) {
         this.name = name;
         this.password = password;
-        this.role = role;
-    }
-
-    public User(String name, String password, String role) {
-        this.name = name;
-        this.password = password;
-        this.role = role;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+        this.userRoles = userRoles;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -68,30 +61,49 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        if (!id.equals(user.id)) return false;
-        if (!name.equals(user.name)) return false;
-        if (!password.equals(user.password)) return false;
-        return role.equals(user.role);
+    public Set<Role> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<Role> setRole) {
+        this.userRoles = setRole;
     }
 
     @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
-        return result;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
-    public String toString() {
-        return "User: " + "id=" + id + ", name=" + name + ", password=" + password + ", role=" + role;
+    public String getUsername() {
+        return null;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+
 }
 
 

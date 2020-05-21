@@ -1,68 +1,70 @@
 package springCrud.DAO;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import springCrud.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDAOImp implements UserDAO {
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void addUserDAO(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.saveOrUpdate(user);
+        entityManager.persist(user);
     }
 
     @Override
     public void delUserDAO(Long id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        User user = session.load(User.class, id);
-        if (id != null) {
-            session.delete(user);
-        }
+        Query query = entityManager.createQuery("delete User where id = :param");
+        query.setParameter("param", id);
+        query.executeUpdate();
     }
 
     @Override
     public void updateUserDAO(User userNew) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(userNew);
+        Query query = entityManager.createQuery("update User set name = :nameParam, " +
+                "password = :passwordParam, " +
+                "role = :roleParam" +
+                " where id = :idParam");
+        query.setParameter("idParam", userNew.getId());
+        query.setParameter("nameParam", userNew.getName());
+        query.setParameter("passwordParam", userNew.getPassword());
+        query.setParameter("roleParam", userNew.getRole());
+        query.executeUpdate();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<User> allUserDAO() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<User> listUsers = session.createCriteria(User.class).list();
-        return listUsers;
+        return entityManager.createQuery(" from User  ").getResultList();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Long getUserIdByName(String name, String password) {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<User> listUser = session.createCriteria(User.class).
-                add(Restrictions.eq("name", name)).
-                add(Restrictions.eq("password", password)).
-                list();
-        if (listUser.size() != 0) {
-            User userGet = listUser.get(0);
-            Long id = userGet.getId();
-            return id;
+    public Long getUserIdByNameAndPassword(String name, String password) {
+        Query query = entityManager.createQuery(" from User  " +
+                "where name = :nameParam " +
+                "and password = :passwordParam");
+        query.setParameter("nameParam", name);
+        query.setParameter("passwordParam", password);
+        List resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
         }
-        return null;
+        User user = (User) resultList.get(0);
+        return user.getId();
     }
 
     @Override
     public User getUserById(Long id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        User user = session.load(User.class, id);
-        return user;
+        return entityManager.find(User.class, id);
     }
 }

@@ -16,7 +16,10 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
-        this.userDAO.addUserDAO(user);
+        Long userIdByName = getUserIdByName(user.getName(), user.getPassword());
+        if (userIdByName == null) {
+            userDAO.addUserDAO(user);
+        }
     }
 
     @Override
@@ -40,7 +43,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public Long getUserIdByName(String name, String password) {
-        return this.userDAO.getUserIdByName(name, password);
+        return this.userDAO.getUserIdByNameAndPassword(name, password);
     }
 
     @Override

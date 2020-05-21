@@ -2,36 +2,34 @@ package springCrud.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import springCrud.model.User;
 import springCrud.service.UserService;
 
 import java.util.List;
 
 @Controller
+@Transactional
 public class UserController {
     @Autowired()
     private UserService userService;
 
     @GetMapping("/users")
-    public String listUsers(Model model) {
+    public ModelAndView listUsers() {
         List<User> list = userService.allUser();
-        model.addAttribute("listUsers", list);
-        return "users";
+        ModelAndView modelAndView = new ModelAndView("users");
+//        model.addAttribute("listUsers", list);
+        modelAndView.getModelMap().addAttribute("listUsers", list);  //addAttribute("listUsers", list);
+        return modelAndView;
     }
 
     @PostMapping("/addUser")
-    public String addUser(@RequestParam("name") String name,
-                          @RequestParam("password") String password,
-                          @ModelAttribute("user") User user) {
-        Long userIdByName = this.userService.getUserIdByName(name, password);
-        if (userIdByName == null) {
-            this.userService.addUser(user);
-        }
+    public String addUser(User user) { //@ModelAttribute("user")
+        this.userService.addUser(user);
         return "redirect:/users";
     }
 
@@ -42,16 +40,11 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@RequestParam("id") Long id,
-                             @RequestParam("name") String name,
-                             @RequestParam("password") String password,
-                             @RequestParam("role") String role,
-                             Model model
-    ) {
-        User userNew = new User(id, name, password, role);
-        userService.addUser(userNew);
-        model.addAttribute("user", userNew);
-        model.addAttribute("listUsers", this.userService.allUser());
+    public String updateUser(User user) {
+        //  User userNew = user
+        userService.updateUser(user);
+        //    model.addAttribute("user", userNew);
+        //    model.addAttribute("listUsers", this.userService.allUser());
         return "redirect:/users";
     }
 }

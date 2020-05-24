@@ -1,3 +1,4 @@
+<%@ taglib prefix="width" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Святослав
@@ -10,13 +11,24 @@
 <head>
     <title>Title</title>
 </head>
+<style>
+    .b1 {
+        background: cornflowerblue; /* Синий цвет фона */
+        color: white; /* Белые буквы */
+        font-size: 12pt; /* Размер шрифта в пунктах */
+        width: 225px;
+    }
+</style>
 <body>
 
-<form method="post" action="/login">
-    <input name="j_username"/>
-    <input name="j_password"/>
-    <input type="submit"/>
-</form>
+<div align="center">
+    <h2>Please sign in</h2>
+    <form method="post" action="/login">
+        <input size="30" name="j_username" placeholder="Email address"/> <br>
+        <input size="30" name="j_password" placeholder="Password" /> <br>
+        <input  class="b1" type="submit" value="Sign in"/>
+    </form>
+</div>
 
 </body>
 </html>

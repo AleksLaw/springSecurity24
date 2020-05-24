@@ -5,7 +5,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>UserPage</title>
+    <title>userInfoPage</title>
+
     <style type="text/css">
         table {
             border: 1px solid black;
@@ -25,17 +26,13 @@
             border: 1px solid black
         }
 
-        .cellbut {
-            width: 100%;
-            height: min-content;
-        }
     </style>
 </head>
 <body>
 <h2>User information page</h2>
 <table>
     <caption>
-      About user
+        About user
     </caption>
     <tr>
         <th>ID</th>
@@ -48,10 +45,8 @@
     <c:forEach var="list" items="${listUsers}">
         <tr>
             <td align="center" width="20"><c:out value="${list.id}"/></td>
-            <td height="100%" align="center">
-                <c:out value="${list.name}"/></td>
-            <td align="center"><label><c:out value="${list.password}"/></label>
-            </td>
+            <td height="100%" align="center"><c:out value="${list.name}"/></td>
+            <td align="center"><label><c:out value="${list.password}"/></label></td>
             <td align="center"><label>
                 <c:forEach var="list1" items="${ list.userRoles}">
                     <c:out value="${list1.role}"/>

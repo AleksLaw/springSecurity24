@@ -2,7 +2,6 @@ package springCrud.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,17 +11,21 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import springCrud.handler.LoginSuccessHandler;
-import springCrud.service.MyUserDetailsService;
+import springCrud.service.MyUserDetailServise;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private MyUserDetailServise myUserDetailsService;
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService( myUserDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(myUserDetailsService);
+        //    auth.inMemoryAuthentication().withUser("USER").password("USER").roles("USER");
+        //   auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
     }
 
     @Override
@@ -50,18 +53,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
 
+//        http
+//                // делаем страницу регистрации недоступной для авторизированных пользователей
+//                .authorizeRequests()
+//                //страницы аутентификаци доступна всем
+//                .antMatchers("/login").anonymous()
+//                // защищенные URL
+//                .antMatchers("/admin").access("hasAnyAuthority()").anyRequest().authenticated();
+//                //.antMatchers("/hello").access("hasAnyRole('USER')").anyRequest().authenticated();
+//        http
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/registrationPage", "/login").permitAll()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/user/**").hasAnyRole("USER")
+//                .anyRequest().authenticated()
+//        ;
         http
-                // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
-                //страницы аутентификаци доступна всем
-                .antMatchers("/login").anonymous()
-                // защищенные URL
-                .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
+                .antMatchers("/registrationPage", "/login").permitAll()
+                //.antMatchers("/index").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**").hasAuthority("USER").anyRequest().authenticated();
+
+
+//        http
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/rest/**").permitAll()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/secure/**").hasAnyRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .permitAll();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
 }

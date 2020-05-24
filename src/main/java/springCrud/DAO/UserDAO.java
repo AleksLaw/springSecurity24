@@ -4,22 +4,25 @@ import springCrud.model.User;
 
 import java.util.List;
 
-public interface UserDAO {
-
-}
-
 //public interface UserDAO {
-//    void addUserDAO(User user);
 //
-//    void delUserDAO(Long id);
+//    User getUserByName(String username);
 //
-//    void updateUserDAO(User userNew);
-//
-//    List<User> allUserDAO();
-//
-//    Long getUserIdByNameAndPassword(String name, String password);
-//
-//    User getUserByName(String name);
-//
-//    User getUserById(Long id);
+//    void save(User user);
 //}
+
+public interface UserDAO {
+    void addUserDAO(User user);
+
+    void delUserDAO(Long id);
+
+    void updateUserDAO(User userNew);
+
+    List<User> allUserDAO();
+
+    Long getUserIdByName(String name);
+
+    User getUserByName(String name);
+
+    User getUserById(Long id);
+}

@@ -18,6 +18,7 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public void addUserDAO(User user) {
+
         entityManager.persist(user);
     }
 
@@ -32,12 +33,12 @@ public class UserDAOImp implements UserDAO {
     public void updateUserDAO(User userNew) {
         Query query = entityManager.createQuery("update User set name = :nameParam, " +
                 "password = :passwordParam " +
-             //   "role = :roleParam" +
+                //   "role = :roleParam" +
                 " where id = :idParam");
         query.setParameter("idParam", userNew.getId());
         query.setParameter("nameParam", userNew.getName());
         query.setParameter("passwordParam", userNew.getPassword());
-       // query.setParameter("roleParam", userNew.getRole());
+        // query.setParameter("roleParam", userNew.getRole());
         query.executeUpdate();
     }
 
@@ -49,12 +50,10 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Long getUserIdByNameAndPassword(String name, String password) {
+    public Long getUserIdByName(String name) {
         Query query = entityManager.createQuery(" from User  " +
-                "where name = :nameParam " +
-                "and password = :passwordParam");
+                "where name = :nameParam ");
         query.setParameter("nameParam", name);
-        query.setParameter("passwordParam", password);
         List resultList = query.getResultList();
         if (resultList.isEmpty()) {
             return null;
@@ -64,12 +63,30 @@ public class UserDAOImp implements UserDAO {
     }
 
     @Override
-    public User getUserByName(String name) {
-            return entityManager.find(User.class, name);
-    }
-
-    @Override
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
+
+    public User getUserByName(String name) {
+        Long userIdByName = getUserIdByName(name);
+        User user = entityManager.find(User.class, userIdByName);
+        return user;
+    }
+
+//    @Override
+//    public User getUserByName(String username) {
+//        return entityManager.find(User.class, username);
+//    }
+//
+//    @Override
+//    public void save(User user) {
+//        entityManager.persist(user);
+//    }
+//
+//    @Override
+//    public User findUserByName(String name) {
+//        return entityManager.find(User.class, name);
+//    }
+
+
 }

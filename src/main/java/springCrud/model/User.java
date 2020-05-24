@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,8 +25,7 @@ public class User implements UserDetails {
 
 
     @Column
-
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
             joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -33,6 +33,7 @@ public class User implements UserDetails {
     private Set<Role> userRoles;
 
     public User() {
+
     }
 
     public User(String name, String password, Set<Role> userRoles) {
@@ -71,7 +72,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getUserRoles();
     }
 
     public String getPassword() {
@@ -80,38 +81,31 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
-    }
+
+
 }
 
 

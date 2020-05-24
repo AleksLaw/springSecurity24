@@ -46,6 +46,7 @@
 
 
     <c:forEach var="list" items="${listUsers}">
+        <c:out value="${list.userRoles.iterator()}"/>
         <tr>
             <td align="center" width="20"><c:out value="${list.id}"/></td>
             <form method="post" action="/updateUser">
@@ -54,9 +55,13 @@
                 <td align="center"><label><input align="center" type="text" name="password"
                                                  value="<c:out value="${list.password}"/>"></label>
                 </td>
-                <td align="center"><label><input align="center" type="text" name="role"
-                                                 value="<c:out value="${list.role}"/>"></label></td>
-
+                <td align="center"><label><input align="center" type="text" name="role"/>
+                </label>
+                    <c:forEach var="list1" items="${ list.userRoles}">
+                        <c:out value="${list1.role}"/>
+                    </c:forEach>
+                    </label>
+                </td>
                 <td align="center">
                     <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
                     <input class="cellbut" type="submit" value="Update" name="update"><br>

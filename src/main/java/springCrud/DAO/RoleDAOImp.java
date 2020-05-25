@@ -40,4 +40,9 @@ public class RoleDAOImp implements RoleDAO {
     public Role getRoleById(Long id) {
         return entityManager.find(Role.class, id);
     }
+
+    @Override
+    public void addRole(Role name) {
+        entityManager.persist(name);
+    }
 }

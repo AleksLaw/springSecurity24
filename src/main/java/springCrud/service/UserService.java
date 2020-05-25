@@ -18,9 +18,4 @@ public interface UserService {
     Long getUserIdByName(String name);
 
     User getUserById(Long id);
-
-//    void save(User user);
-//
-//    User findUserByName(String name);
-
 }

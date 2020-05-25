@@ -25,12 +25,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             if ("USER".equals(grantedAuthority.getAuthority())) {
                 isUser = true;
                 break;
-            } else if ("ADMIN".equals(grantedAuthority.getAuthority())){
+            } else if ("ADMIN".equals(grantedAuthority.getAuthority())) {
                 isAdmin = true;
                 break;
             }
         }
-
         if (isUser) {
             httpServletResponse.sendRedirect("/userInfoPage");
         } else if (isAdmin) {

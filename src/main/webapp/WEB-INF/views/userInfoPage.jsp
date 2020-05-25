@@ -6,29 +6,33 @@
 <html>
 <head>
     <title>userInfoPage</title>
-
     <style type="text/css">
         table {
             border: 1px solid black;
-            width: auto;
+            width: 610px;
         }
-
         tr {
             height: 15px;
         }
-
         th {
             border: 1px solid black
         }
-
         td {
             align-content: center;
             border: 1px solid black
         }
-
+        .cellbut4 {
+            width: 610px;
+            margin-bottom: 1px;
+            height: min-content;
+            background: darkgrey; /* Серый цвет фона для изменения*/
+            color: white; /* Белые буквы */
+            font-size: 12pt; /* Размер шрифта в пунктах */
+        }
     </style>
 </head>
 <body>
+<div align="center">
 <h2>User information page</h2>
 <table>
     <caption>
@@ -39,9 +43,7 @@
         <th>Email</th>
         <th>Password</th>
         <th>Role</th>
-
     </tr>
-
     <c:forEach var="list" items="${listUsers}">
         <tr>
             <td align="center" width="20"><c:out value="${list.id}"/></td>
@@ -55,15 +57,13 @@
             </td>
         </tr>
     </c:forEach>
-
 </table>
 <form action="/logout" method="post">
     <input type="hidden"
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
-    <input type="submit" value="Logout">
+    <input class="cellbut4" type="submit" value="Logout">
 </form>
-
-
+</div>
 </body>
 </html>

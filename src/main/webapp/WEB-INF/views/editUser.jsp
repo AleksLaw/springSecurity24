@@ -22,6 +22,7 @@
             color: white; /* Белые буквы */
             font-size: 12pt; /* Размер шрифта в пунктах */
         }
+
         .cellbut3 {
             width: 75px;
             height: min-content;
@@ -29,45 +30,32 @@
             color: white; /* Белые буквы */
             font-size: 12pt; /* Размер шрифта в пунктах */
         }
-
-
     </style>
 </head>
 <body>
 <div align="center">
     <h2>Edit user</h2>
     <c:forEach var="list" items="${listUsers}">
-
-    ID<br>
-    <input size="30" disabled placeholder="<c:out value='${list.id}'/> "> <br>
-    NAME<br>
+        ID<br>
+        <input size="30" disabled placeholder="<c:out value='${list.id}'/> "> <br>
+        NAME<br>
         <form method="post" action="/admin/updateUser">
-    <input size="30" name="name"  placeholder="<c:out value='${list.name}'/>"> <br>
-
-    Password<br>
-    <input size="30" name="password" placeholder="<c:out value='${list.password}'/>"> <br>
-
-    Role<br>
-    <div  class="select"  style="width:225px;" align="center">
-        <select name="role" multiple size="2" style="width: 225px; ">
-            <option > ADMIN</option>
-            <option> USER</option>
-        </select>
-    </div>
-
-
-
+            <input size="30" name="name" placeholder="<c:out value='${list.name}'/>"> <br>
+            Password<br>
+            <input size="30" name="password" placeholder="<c:out value='${list.password}'/>"> <br>
+            Role<br>
+            <div class="select" style="width:225px;" align="center">
+                <select name="role" multiple size="2" style="width: 225px; ">
+                    <option> ADMIN</option>
+                    <option> USER</option>
+                </select>
+            </div>
             <table>
-
-                    <input type="hidden" name="id" value="<c:out value='${list.id}'/>">
+                <input type="hidden" name="id" value="<c:out value='${list.id}'/>">
                 <input class="cellbut2" type="button" value="Close" onClick='location.href="/admin/adminPageInfo"'/>
                 <input class="cellbut1" type="submit" value="Edit">
-<%--        </form>--%>
-<%--        <form method="get" action="/admin/adminPageInfo">--%>
-
-
         </form>
-        <form  action="/logout" method="post" >
+        <form action="/logout" method="post">
             <input type="hidden"
                    name="${_csrf.parameterName}"
                    value="${_csrf.token}"/>
@@ -75,10 +63,6 @@
         </form>
         </table>
     </c:forEach>
-
-
-
 </div>
-
 </body>
 </html>

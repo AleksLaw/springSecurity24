@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +22,6 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-
     @Column
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
@@ -33,7 +31,6 @@ public class User implements UserDetails {
     private Set<Role> userRoles;
 
     public User() {
-
     }
 
     public Long getId() {
@@ -97,8 +94,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }
 
 

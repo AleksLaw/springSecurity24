@@ -22,4 +22,10 @@ public class RoleServiceImp implements RoleService {
     public Role getRoleById(Long id) {
         return roleDAO.getRoleById(id);
     }
+
+    @Override
+    @Transactional
+    public void addRole(Role name) {
+        roleDAO.addRole(name);
+    }
 }

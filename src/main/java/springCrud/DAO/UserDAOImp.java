@@ -63,21 +63,4 @@ public class UserDAOImp implements UserDAO {
         User user = entityManager.find(User.class, userIdByName);
         return user;
     }
-
-//    @Override
-//    public User getUserByName(String username) {
-//        return entityManager.find(User.class, username);
-//    }
-//
-//    @Override
-//    public void save(User user) {
-//        entityManager.persist(user);
-//    }
-//
-//    @Override
-//    public User findUserByName(String name) {
-//        return entityManager.find(User.class, name);
-//    }
-
-
 }

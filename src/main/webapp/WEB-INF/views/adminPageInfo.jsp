@@ -7,7 +7,6 @@
 <head>
     <title>adminPageInfo</title>
     <style type="text/css">
-
         table {
             border: 1px solid black;
             width: 610px;
@@ -64,8 +63,7 @@
 <body>
 <div align="center">
     <h1>Admin panel</h1>
-    <table >
-
+    <table>
         <caption><h3>Table users</h3></caption>
         <tr>
             <th>Id</th>
@@ -75,8 +73,6 @@
             <th></th>
             <th></th>
         </tr>
-
-
         <c:forEach var="list" items="${listUsers}">
             <tr>
                 <td align="center" width="20"><label><c:out value="${list.id}"/></label></td>
@@ -96,7 +92,6 @@
                         <input class="cellbut2" type="submit" value="Edit" name="update">
                 </form>
                 </td>
-
                 <form method="post" action="/admin/deleteUser">
                     <td align="center">
                         <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
@@ -105,18 +100,14 @@
                 </td>
             </tr>
         </c:forEach>
-
-
     </table>
-
     <form style="margin: 1px" method="get" action="/admin/addUserPage">
-        <input class="cellbut3" type="submit" value="Add" >
+        <input class="cellbut3" type="submit" value="Add">
     </form>
     <form action="/logout" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input class="cellbut4" type="submit" value="Logout">
     </form>
-
 </div>
 </body>
 </html>

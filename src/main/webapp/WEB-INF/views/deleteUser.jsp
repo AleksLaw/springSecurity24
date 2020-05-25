@@ -22,6 +22,7 @@
             color: white; /* Белые буквы */
             font-size: 12pt; /* Размер шрифта в пунктах */
         }
+
         .cellbut3 {
             width: 75px;
             height: min-content;
@@ -29,37 +30,28 @@
             color: white; /* Белые буквы */
             font-size: 12pt; /* Размер шрифта в пунктах */
         }
-
-
     </style>
 </head>
 <body>
 <div align="center">
     <h2>Delete user</h2>
     <c:forEach var="list" items="${listUsers}">
-
     ID<br>
     <input size="30" disabled placeholder="<c:out value='${list.id}'/> "> <br>
     NAME<br>
     <input size="30" disabled placeholder="<c:out value='${list.name}'/>"> <br>
-
     Password<br>
     <input size="30" disabled placeholder="<c:out value='${list.password}'/>"> <br>
-
     Role<br>
-<div class="select"  style="width:225px;" align="center">
-    <select disabled size="2" style="width: 225px; " >
-        <c:forEach var="list1" items="${ list.userRoles}">
-            <option disabled><c:out value='${list1.role}'/></option>
-        </c:forEach>
-    </select>
-</div>
-
+    <div class="select" style="width:225px;" align="center">
+        <select disabled size="2" style="width: 225px; ">
+            <c:forEach var="list1" items="${ list.userRoles}">
+                <option disabled><c:out value='${list1.role}'/></option>
+            </c:forEach>
+        </select>
+    </div>
     <br>
-
-
     <table>
-
         <form method="get" action="/admin/adminPageInfo">
             <input class="cellbut2" type="submit" value="Close"/>
         </form>
@@ -67,7 +59,7 @@
             <input class="cellbut1" type="submit" value="Delete">
             <input type="hidden" name="id" value="<c:out value='${list.id}'/>">
         </form>
-        <form  action="/logout" method="post" >
+        <form action="/logout" method="post">
             <input type="hidden"
                    name="${_csrf.parameterName}"
                    value="${_csrf.token}"/>
@@ -75,9 +67,6 @@
         </form>
         </c:forEach>
     </table>
-
-
 </div>
-
 </body>
 </html>

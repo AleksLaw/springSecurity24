@@ -1,20 +1,18 @@
 package springCrud.service;
 
 
-import netscape.security.Privilege;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import springCrud.model.Role;
 import springCrud.model.User;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyUserPrincipal implements UserDetails {
     private User user;
-
-
 
     public MyUserPrincipal(User user) {
         this.user = user;

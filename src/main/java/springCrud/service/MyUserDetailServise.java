@@ -18,9 +18,6 @@ public class MyUserDetailServise implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-//        Long userIdByName = userRepository.getUserIdByName(username);
-//
-//        User user = userRepository.getUserById(userIdByName);
         User user = userDAO.getUserByName(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);

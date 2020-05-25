@@ -19,11 +19,8 @@ public class Role implements GrantedAuthority {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "userRoles")
     private Set<User> users;
 
-
     public Role() {
     }
-
-
 
     public Long getId() {
         return id;

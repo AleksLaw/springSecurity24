@@ -4,12 +4,6 @@ import springCrud.model.User;
 
 import java.util.List;
 
-//public interface UserDAO {
-//
-//    User getUserByName(String username);
-//
-//    void save(User user);
-//}
 
 public interface UserDAO {
     void addUserDAO(User user);

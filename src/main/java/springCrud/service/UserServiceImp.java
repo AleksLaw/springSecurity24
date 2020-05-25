@@ -13,23 +13,7 @@ import java.util.List;
 public class UserServiceImp implements UserService {
     @Autowired
     private UserDAO userDAO;
-//    @Autowired
-//    private RoleDAO roleDAO;
 
-//    @Override
-//    public void save(User user) {
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(roleDAO.findByRoleName("USER"));
-//        user.setUserRoles(roles);
-//        userDAO.save(user);
-//    }
-//
-//    @Override
-//    public User findUserByName(String name) {
-//        return userDAO.findUserByName(name);
-//    }
-//    @Autowired
-//    private UserDAO userDAO;
 
     @Override
     @Transactional

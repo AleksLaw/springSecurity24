@@ -36,12 +36,6 @@ public class User implements UserDetails {
 
     }
 
-    public User(String name, String password, Set<Role> userRoles) {
-        this.name = name;
-        this.password = password;
-        this.userRoles = userRoles;
-    }
-
     public Long getId() {
         return id;
     }
@@ -103,7 +97,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 
 }

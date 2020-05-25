@@ -1,12 +1,13 @@
-package springCrud.DAO;
+package springCrud.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import springCrud.model.Role;
 import springCrud.model.User;
 
-import java.util.Set;
+import java.util.List;
 
-public interface RoleDAO  {
+public interface RoleService {
+
     Long getRoleIdByName(String name);
 
     Role getRoleById(Long id);

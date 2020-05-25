@@ -45,22 +45,6 @@
 
     </tr>
 
-    <c:forEach var="list" items="${listUsers}">
-        <tr>
-            <td align="center" width="20"><c:out value="${list.id}"/></td>
-            <td height="100%" align="center">
-                <c:out value="${list.name}"/></td>
-            <td align="center"><label><c:out value="${list.password}"/></label>
-            </td>
-            <td align="center"><label>
-                <c:forEach var="list1" items="${ list.userRoles}">
-                    <c:out value="${list1.role}"/>
-                </c:forEach>
-            </label>
-            </td>
-        </tr>
-    </c:forEach>
-
 </table>
 <form action="/logout" method="post">
     <input type="hidden"
